@@ -20,27 +20,15 @@ const Inputs = styled.input`
 `
 
 class Filtros extends React.Component {
-    state ={
-        maxprice:0,
-        minprice:0,
-        name:''
-    }
-
-    onChangeMinPrice(event){
-        this.setState({minprice:event.target.value})
-    }
-    onChangeMaxPrice(event){
-        this.setState({maxprice:event.target.value})
-    }
-    onChangeName(event){
-        this.setState({name:event.target.value})
-    }
+    
+    
+    
     render() {
         return (
             <Wrapper>
-                <Inputs value={this.state.minprice} onChange={this.onChangeMinPrice} placeholder='Preço minimo' />
-                <Inputs value={this.state.maxprice} onChange={this.onChangeMaxPrice} placeholder='Preço Máximo' />
-                <Inputs value={this.state.name} onChange={this.onChangeName} placeholder='Nome do produto'/>
+                <Inputs value={this.props.minprice} onChange={this.props.changeminprice} placeholder='Preço minimo' />
+                <Inputs value={this.props.maxprice} onChange={this.props.changemaxprice} placeholder='Preço Máximo' />
+                <Inputs value={this.props.name} onChange={this.props.changename} placeholder='Nome do produto'/>
 
             </Wrapper>
         )
