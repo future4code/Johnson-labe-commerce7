@@ -1,26 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import Filtros from './components/filtros/Filtros';
+import Produtos from './components/produto/Produto';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Wrapper = styled.div`
+  height: 100vh;
+`
+
+const Header = styled.div`
+  height:15%;
+  border:solid;
+  background-color: green;
+`
+const Main = styled.div`
+  display: flex;
+  height: 85%;
+  background-color: yellow;
+`
+
+const MenuEsquerdo = styled.div`
+  width: 15%;
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
+export default class App extends React.Component{
+  render(){
+    return(
+      <Wrapper>
+        <Header>
+
+        </Header>
+
+        <Main>
+            <MenuEsquerdo>
+                <Filtros/>
+            </MenuEsquerdo>
+
+            <div>
+                <Produtos/>
+            </div>
+        </Main>
+      </Wrapper>
+      )
+  }
 }
-
-export default App;
