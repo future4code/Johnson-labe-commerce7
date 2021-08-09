@@ -1,47 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
-import Filtros from './components/filtros/Filtros';
-import Produtos from './components/produto/Produto';
+import Filtros from './components/Filters';
+import Cart from './components/Cart';
+import ProductsSection from './components/ProductsSection';
 
 const Wrapper = styled.div`
   height: 100vh;
+
 `
 
 const Header = styled.div`
   height:15%;
   border:solid;
-  background-color: green;
+  background-color: darkblue;
 `
 const Main = styled.div`
   display: flex;
-  height: 85%;
+  height: 100%;
   background-color: yellow;
 `
 
-const SideBar = styled.div`
-  width: 15%;
-  display: flex;
-  background-color: white;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`
 
-const ProductsSection = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-template-rows :auto ;
-`
+
+
 
 export default class App extends React.Component {
   state = {
-    products: [
-      {name:'teste', price:500},
-      {name:'teste', price:200},
-    ],
-    minprice: 100,
+    cart: [],
+    minprice: 0,
     maxprice: 1000,
-    name: 'Teste'
+    name: 'Nome'
   }
 
 
@@ -56,26 +44,40 @@ export default class App extends React.Component {
     this.setState({ name: event.target.value })
   }
 
-  showProducts = () => 
-      this.state.products.map((product,index)=>{
-      if(product.price >= this.state.minprice && product.price <= this.state.maxprice){
-        return(
-          <Produtos price={product.price} name={product.name} key={index} />
-        )
-      }
-    })
-  
 
+  updateCart = (newcart) => {
+    this.setState({ cart: newcart })
+    console.log(this.state.cart)
+  }
+
+  addToCart = (product) => {
+    const array = [...this.state.cart]
+    array.push(product)
+    this.setState({
+      cart: array
+    })
+
+  }
+  onChangeOption = (event) => {
+    this.setState({
+        order: event.target.value
+    })
+
+}
 
   render() {
-    return (
-      <Wrapper>
-        <Header>
 
+
+
+    return (
+
+      <Wrapper>
+
+        <Header>
         </Header>
 
         <Main>
-          <SideBar>
+
             <Filtros
 
               minprice={this.state.minprice}
@@ -86,11 +88,19 @@ export default class App extends React.Component {
               changename={this.onChangeName}
 
             />
-          </SideBar>
 
-          <ProductsSection>
-            {this.showProducts()}
-          </ProductsSection>
+            <ProductsSection
+             onChange={this.onChangeOption}
+              addToCart={this.addToCart}
+              minprice={this.state.minprice}
+              maxprice={this.state.maxprice}
+              name={this.state.name}
+            />
+
+            <Cart
+              cart={this.state.cart}
+            />
+
         </Main>
       </Wrapper>
     )
