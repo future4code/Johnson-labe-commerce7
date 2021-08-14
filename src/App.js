@@ -1,26 +1,108 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import Filtros from './components/Filters';
+import Cart from './components/Cart';
+import ProductsSection from './components/ProductsSection';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Wrapper = styled.div`
+  height: 100vh;
+
+`
+
+const Header = styled.div`
+  height:15%;
+  border:solid;
+  background-color: darkblue;
+`
+const Main = styled.div`
+  display: flex;
+  height: 100%;
+  background-color: yellow;
+`
+
+
+
+
+
+export default class App extends React.Component {
+  state = {
+    cart: [],
+    minprice: 0,
+    maxprice: 1000,
+    name: 'Nome'
+  }
+
+
+  onChangeMinPrice = (event) => {
+    this.setState({ minprice: event.target.value })
+  }
+  onChangeMaxPrice = (event) => {
+    this.setState({ maxprice: event.target.value })
+  }
+
+  onChangeName = (event) => {
+    this.setState({ name: event.target.value })
+  }
+
+
+  updateCart = (newcart) => {
+    this.setState({ cart: newcart })
+    console.log(this.state.cart)
+  }
+
+  addToCart = (product) => {
+    const array = [...this.state.cart]
+    array.push(product)
+    this.setState({
+      cart: array
+    })
+
+  }
+  onChangeOption = (event) => {
+    this.setState({
+        order: event.target.value
+    })
+
 }
 
-export default App;
+  render() {
+
+
+
+    return (
+
+      <Wrapper>
+
+        <Header>
+        </Header>
+
+        <Main>
+
+            <Filtros
+
+              minprice={this.state.minprice}
+              maxprice={this.state.maxprice}
+              name={this.state.name}
+              changeminprice={this.onChangeMinPrice}
+              changemaxprice={this.onChangeMaxPrice}
+              changename={this.onChangeName}
+
+            />
+
+            <ProductsSection
+             onChange={this.onChangeOption}
+              addToCart={this.addToCart}
+              minprice={this.state.minprice}
+              maxprice={this.state.maxprice}
+              name={this.state.name}
+            />
+
+            <Cart
+              cart={this.state.cart}
+            />
+
+        </Main>
+      </Wrapper>
+    )
+  }
+}
